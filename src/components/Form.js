@@ -1,10 +1,19 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  FlatList,
+} from 'react-native';
 
 import RadioForm from 'react-native-simple-radio-button';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {incrementCounter} from '../store/form/formActions';
+
+import InputField from './InputField';
 
 const Form = () => {
   const [title, setTitle] = useState('');
@@ -47,27 +56,27 @@ const Form = () => {
 
     if (is_valid) {
       dispatch(incrementCounter());
+      setTitle('');
+      setEmail('');
+      setNumber('');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text>Title:</Text>
-      <TextInput
-        style={styles.input}
-        value={title}
+      <InputField
+        inputName="Title"
+        inputValue={title}
         onChangeText={text => setTitle(text)}
       />
-      <Text>Email:</Text>
-      <TextInput
-        style={styles.input}
-        value={email}
+      <InputField
+        inputName="Email"
+        inputValue={email}
         onChangeText={text => setEmail(text)}
       />
-      <Text>Number:</Text>
-      <TextInput
-        style={styles.input}
-        value={number}
+      <InputField
+        inputName="Number"
+        inputValue={number}
         onChangeText={text => setNumber(text)}
       />
 
@@ -81,16 +90,8 @@ const Form = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {marginTop: 40},
-  input: {
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 15,
-    padding: 5,
-    margin: 5,
-  },
 });
 
 export default Form;
